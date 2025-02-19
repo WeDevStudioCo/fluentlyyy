@@ -13,6 +13,19 @@ export default function Dashboard({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">You're logged in!</div>
+                        <p>Your role is {auth.user.role}.
+                        {auth.user.role === 'student' && (
+                            <span> You can only access the dashboard.</span>
+                        )}
+                        {auth.user.role === 'teacher' && (
+                            <span> You can access the dashboard and the teacher's dashboard.</span>
+                        )}
+                        {auth.user.role === 'admin' && (
+                            <span> You can access the dashboard, the teacher's dashboard, and the admin dashboard.</span>
+                        )}
+
+
+                        </p>
                     </div>
                 </div>
             </div>

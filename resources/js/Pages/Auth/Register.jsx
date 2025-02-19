@@ -3,6 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SelectInput from '@/Components/SelectInput';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -10,6 +11,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        role: 'student',
         password: '',
         password_confirmation: '',
     });
@@ -69,6 +71,22 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="role" value="Elige tu rol" />
+                    <SelectInput
+                        id="role"
+                        name="role"
+                        value={data.role}
+                        className="mt-1 bg-white block w-full"
+                        onChange={(e) => setData('role', e.target.value)}
+                        required
+                    >
+                        <option value="student">Estudiante</option>
+                        <option value="teacher">Profesor</option>
+                    </SelectInput>
+                    <InputError message={errors.role} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
