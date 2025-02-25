@@ -5,11 +5,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
   return (
     <>
       <Head title="Welcome" />
-      <div data-theme="valentine" className="bg-dots-darker dark:bg-dots-lighter min-h-screen flex flex-col items-center justify-center gap-6">
+      <div data-theme="valentine" className="bg-dots-darker dark:bg-dots-lighter min-h-screen flex flex-col items-center justify-center gap-6 p-6">
         <img src="/img/logo.svg" alt="Fluentlyyy" className="w-64" />
         <h1 className="text-2xl md:text-6xl font-bold">Hola! Esto es Fluentlyyy</h1>
-        <p className="text-xl">Fluentlyyy es una plataforma para conectar gente que quiere aprender idiomas.</p>
-        <div className="flex mt-10 gap-12">
+        <p className="text-xl text-center">Fluentlyyy es una plataforma para conectar gente que quiere aprender idiomas.</p>
+        <div className="flex flex-col md:flex-row mt-10 gap-4 md:gap-12">
             <Link href="/register" className="btn btn-secondary btn-wide text-lg text-white  px-6">Registrate</Link>
             <Link href="/login" className="btn btn-primary btn-wide text-lg">Iniciar sesión</Link>
         </div>
