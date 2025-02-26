@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +27,7 @@ Route::get('/', function () {
     ]);
 });
 
-// This route is used to display the dashboard page
+// This route is used to display the dashboard page for admins
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'role:admin'])->name('dashboard');
@@ -34,6 +35,11 @@ Route::get('/dashboard', function () {
 // Users with role "teachers" will be able to access this route
 Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::get('/teacher-dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
+});
+
+// Users with role "students" will be able to access this route
+Route::middleware(['auth', 'role:student'])->group(function () {
+    Route::get('/student-dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
 });
 
 Route::middleware('auth')->group(function () {

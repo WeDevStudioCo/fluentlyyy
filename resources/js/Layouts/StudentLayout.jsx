@@ -19,7 +19,7 @@ export default function TeacherLayout({ user, header, children }) {
             href={route('dashboard')}
             className="text-white text-2xl font-semibold"
           >
-            Teacher Dashboard
+            Student Dashboard
           </Link>
         </div>
         <nav className="mt-10">
@@ -30,8 +30,8 @@ export default function TeacherLayout({ user, header, children }) {
           >
             <div className="pt-2 pb-3 space-y-1">
               <ResponsiveNavLink
-                href={route('dashboard')}
-                active={route().current('dashboard')}
+                href={route('student.dashboard')}
+                active={route().current('student.dashboard')}
               >
                 Dashboard
               </ResponsiveNavLink>
@@ -48,8 +48,7 @@ export default function TeacherLayout({ user, header, children }) {
               </div>
 
               <div className="mt-3 space-y-1">
-                <ResponsiveNavLink href={route('profile.edit')}
-                >
+                <ResponsiveNavLink href={route('profile.edit')}>
                   Profile
                 </ResponsiveNavLink>
                 <ResponsiveNavLink
