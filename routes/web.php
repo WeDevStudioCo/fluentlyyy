@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\TeacherProfileController;
+use App\Http\Controllers\PublicTeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 // This route is used to display the dashboard page for admins
 Route::get('/dashboard', function () {
@@ -35,7 +37,12 @@ Route::get('/dashboard', function () {
 // Users with role "teachers" will be able to access this route
 Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::get('/teacher-dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
+    Route::get('/teacher-profile', [TeacherProfileController::class, 'edit'])->name('teacher.profile.edit');
+    Route::post('/teacher-profile', [TeacherProfileController::class, 'update'])->name('teacher.profile.update');
 });
+
+// Public routes for viewing teacher profiles
+// Route::get('/teachers/{id}', [TeacherProfileController::class, 'show'])->name('teacher.profile.show');
 
 // Users with role "students" will be able to access this route
 Route::middleware(['auth', 'role:student'])->group(function () {
@@ -47,5 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Public teacher routes
+Route::get('/teachers', [PublicTeacherController::class, 'index'])->name('teachers.index');
+Route::get('/teachers/{teacher}', [PublicTeacherController::class, 'show'])->name('teachers.show');
 
 require __DIR__.'/auth.php';

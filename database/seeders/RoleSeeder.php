@@ -7,10 +7,11 @@ use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
+        // Create roles
         Role::create(['name' => 'admin']);
-        Role::create(['name' => 'student']);
         Role::create(['name' => 'teacher']);
+        Role::create(['name' => 'student']);
     }
 }
