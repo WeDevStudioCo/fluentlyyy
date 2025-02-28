@@ -8,6 +8,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\TeacherProfileController;
 use App\Http\Controllers\PublicTeacherController;
+use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\PublicStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +49,12 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 // Users with role "students" will be able to access this route
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student-dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+    Route::get('/student-profile', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
+    Route::post('/student-profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
 });
+
+// Public routes for viewing student profiles
+Route::get('/students/{student}', [StudentProfileController::class, 'show'])->name('students.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -58,5 +65,9 @@ Route::middleware('auth')->group(function () {
 // Public teacher routes
 Route::get('/teachers', [PublicTeacherController::class, 'index'])->name('teachers.index');
 Route::get('/teachers/{teacher}', [PublicTeacherController::class, 'show'])->name('teachers.show');
+
+// Public student routes
+Route::get('/students', [PublicStudentController::class, 'index'])->name('students.index');
+Route::get('/students/{student}', [PublicStudentController::class, 'show'])->name('students.show');
 
 require __DIR__.'/auth.php';

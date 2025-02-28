@@ -157,7 +157,7 @@ export default function Dashboard({ auth, student, recommendedTeachers }) {
                                     Find Teachers
                                 </Link>
                                 <Link
-                                    href={route('profile.edit')}
+                                    href={route('student.profile.edit')}
                                     className="inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50"
                                 >
                                     Edit Profile
