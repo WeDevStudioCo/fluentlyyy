@@ -4,7 +4,7 @@ import PublicLayout from '@/Layouts/PublicLayout';
 export default function Show({ student }) {
     return (
         <PublicLayout>
-            <Head title={`${student.name} - Language Student`} />
+            <Head title={`${student.name} - Estudiante de Idiomas`} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -29,8 +29,8 @@ export default function Show({ student }) {
                                         
                                         {student.languages_learning && student.languages_learning.length > 0 && (
                                             <div className="mt-4">
-                                                <h3 className="text-lg font-semibold text-gray-800 mb-2">Learning</h3>
-                                                <div className="flex flex-wrap justify-center gap-2">
+                                                <h3 className="text-lg font-semibold mb-2">Idiomas que Aprende</h3>
+                                                <div className="flex flex-wrap gap-2">
                                                     {student.languages_learning.map((language, index) => (
                                                         <span
                                                             key={index}
@@ -43,17 +43,19 @@ export default function Show({ student }) {
                                             </div>
                                         )}
                                         
-                                        <div className="mt-6 text-center">
-                                            <p className="text-gray-600">
-                                                Level: <span className="font-semibold">{student.current_language_level}</span>
-                                            </p>
-                                            <p className="text-gray-600 mt-2">
-                                                Preferred Duration: <span className="font-semibold">{student.preferred_lesson_duration}</span>
-                                            </p>
-                                            <p className="text-gray-600 mt-2">
-                                                Budget: <span className="font-semibold">${student.budget_per_hour}/hour</span>
-                                            </p>
-                                        </div>
+                                        {student.current_language_level && (
+                                            <div className="mt-6">
+                                                <h3 className="text-lg font-semibold mb-2">Nivel Actual</h3>
+                                                <p className="text-gray-600">{student.current_language_level}</p>
+                                            </div>
+                                        )}
+                                        
+                                        {student.budget_per_hour && (
+                                            <div className="mt-6">
+                                                <h3 className="text-lg font-semibold mb-2">Presupuesto por Hora</h3>
+                                                <p className="text-2xl font-bold text-indigo-600">${student.budget_per_hour}</p>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -61,14 +63,14 @@ export default function Show({ student }) {
                                 <div className="md:w-2/3 mt-8 md:mt-0 md:pl-12">
                                     {student.bio && (
                                         <section className="mb-12">
-                                            <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+                                            <h2 className="text-2xl font-semibold mb-4">Sobre Mí</h2>
                                             <p className="text-gray-600 whitespace-pre-line leading-relaxed">{student.bio}</p>
                                         </section>
                                     )}
 
                                     {student.learning_goals && student.learning_goals.length > 0 && (
                                         <section className="mb-12">
-                                            <h2 className="text-2xl font-semibold mb-4">Learning Goals</h2>
+                                            <h2 className="text-2xl font-semibold mb-4">Objetivos de Aprendizaje</h2>
                                             <ul className="list-disc list-inside space-y-2">
                                                 {student.learning_goals.map((goal, index) => (
                                                     <li key={index} className="text-gray-600">{goal}</li>
@@ -79,7 +81,7 @@ export default function Show({ student }) {
 
                                     {student.interests && student.interests.length > 0 && (
                                         <section className="mb-12">
-                                            <h2 className="text-2xl font-semibold mb-4">Interests</h2>
+                                            <h2 className="text-2xl font-semibold mb-4">Intereses</h2>
                                             <div className="flex flex-wrap gap-2">
                                                 {student.interests.map((interest, index) => (
                                                     <span
@@ -93,9 +95,16 @@ export default function Show({ student }) {
                                         </section>
                                     )}
 
+                                    {student.preferred_lesson_duration && (
+                                        <section className="mb-12">
+                                            <h2 className="text-2xl font-semibold mb-4">Duración Preferida de Clase</h2>
+                                            <p className="text-gray-600">{student.preferred_lesson_duration}</p>
+                                        </section>
+                                    )}
+
                                     {student.preferred_teaching_style && student.preferred_teaching_style.length > 0 && (
                                         <section className="mb-12">
-                                            <h2 className="text-2xl font-semibold mb-4">Preferred Teaching Style</h2>
+                                            <h2 className="text-2xl font-semibold mb-4">Estilo de Enseñanza Preferido</h2>
                                             <ul className="list-disc list-inside space-y-2">
                                                 {student.preferred_teaching_style.map((style, index) => (
                                                     <li key={index} className="text-gray-600">{style}</li>

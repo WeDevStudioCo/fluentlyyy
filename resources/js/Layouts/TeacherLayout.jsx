@@ -19,7 +19,7 @@ export default function TeacherLayout({ user, header, children }) {
             href={route('dashboard')}
             className="text-white text-2xl font-semibold"
           >
-            Teacher Dashboard
+            Panel del Profesor
           </Link>
         </div>
         <nav className="mt-10">
@@ -33,7 +33,7 @@ export default function TeacherLayout({ user, header, children }) {
                 href={route('teacher.dashboard')}
                 active={route().current('teacher.dashboard')}
               >
-                Dashboard
+                Panel
               </ResponsiveNavLink>
             </div>
 
@@ -50,14 +50,14 @@ export default function TeacherLayout({ user, header, children }) {
               <div className="mt-3 space-y-1">
                 <ResponsiveNavLink href={route('teacher.profile.edit')}
                 >
-                  Profile
+                  Perfil
                 </ResponsiveNavLink>
                 <ResponsiveNavLink
                   method="post"
                   href={route('logout')}
                   as="button"
                 >
-                  Log Out
+                  Cerrar Sesión
                 </ResponsiveNavLink>
               </div>
             </div>

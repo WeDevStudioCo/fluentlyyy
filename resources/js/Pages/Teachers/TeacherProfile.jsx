@@ -19,15 +19,15 @@ const TeacherProfile = () => {
 
     return (
         <div>
-            <h2>Teacher Profile</h2>
-            <label>Calendly Booking Link:</label>
+            <h2>Perfil del Profesor</h2>
+            <label>Link de Calendly:</label>
             <input
                 type="url"
                 value={calendlyLink}
                 onChange={(e) => setCalendlyLink(e.target.value)}
                 placeholder="https://calendly.com/yourname"
             />
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>Guardar</button>
             {message && <p>{message}</p>}
         </div>
     );

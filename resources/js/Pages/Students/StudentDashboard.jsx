@@ -6,7 +6,7 @@ export default function TeacherDashboard({ auth }) {
     return (
         <StudentLayout
         user={auth.user}
-        header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Student Dashboard</h2>}
+        header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Escritorio de Estudiante</h2>}
         >
             <Head title="Student Dashboard" />
 

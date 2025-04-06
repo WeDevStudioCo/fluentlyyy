@@ -4,7 +4,7 @@ import PublicLayout from '@/Layouts/PublicLayout';
 export default function Index({ students }) {
     return (
         <PublicLayout>
-            <Head title="Find Language Students" />
+            <Head title="Encuentra Estudiantes de Idiomas" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -26,9 +26,9 @@ export default function TeacherDashboard({ auth, students, filters }) {
     return (
         <TeacherLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Teacher Dashboard</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Panel del Profesor</h2>}
         >
-            <Head title="Teacher Dashboard" />
+            <Head title="Panel del Profesor" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -36,12 +36,12 @@ export default function TeacherDashboard({ auth, students, filters }) {
                         <div className="p-6">
                             <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
                                 <h3 className="text-lg font-medium text-gray-900 mb-4 sm:mb-0">
-                                    Students List
+                                    Lista de Estudiantes
                                 </h3>
                                 <div className="w-full sm:w-64">
                                     <input
                                         type="text"
-                                        placeholder="Search by name or email..."
+                                        placeholder="Buscar por nombre o correo..."
                                         value={search}
                                         onChange={handleSearch}
                                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -54,13 +54,13 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                     <thead className="bg-gray-50">
                                         <tr>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Name
+                                                Nombre
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Email
+                                                Correo
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Actions
+                                                Acciones
                                             </th>
                                         </tr>
                                     </thead>
@@ -83,7 +83,7 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                                             className="text-indigo-600 hover:text-indigo-900"
                                                             onClick={() => {/* TODO: Implement view student details */}}
                                                         >
-                                                            View Details
+                                                            Ver Detalles
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -91,7 +91,7 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                         ) : (
                                             <tr>
                                                 <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
-                                                    No students found
+                                                    No se encontraron estudiantes
                                                 </td>
                                             </tr>
                                         )}

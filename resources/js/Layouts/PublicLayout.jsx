@@ -25,13 +25,13 @@ export default function PublicLayout({ children }) {
                                     href={route('home')}
                                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                                 >
-                                    Home
+                                    Inicio
                                 </Link>
                                 <Link
                                     href="/teachers"
                                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                                 >
-                                    Find Teachers
+                                    Encontrar Profesores
                                 </Link>
                             </div>
                         </div>
@@ -43,13 +43,13 @@ export default function PublicLayout({ children }) {
                                     href={route('login')}
                                     className="text-sm text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
                                 >
-                                    Log in
+                                    Iniciar sesión
                                 </Link>
                                 <Link
                                     href={route('register')}
                                     className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 >
-                                    Get Started
+                                    Empezar
                                 </Link>
                             </div>
                         </div>
@@ -88,25 +88,25 @@ export default function PublicLayout({ children }) {
                             href={route('home')}
                             className="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                         >
-                            Home
+                            Inicio
                         </Link>
                         <Link
                             href="/teachers"
                             className="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                         >
-                            Find Teachers
+                            Encontrar Profesores
                         </Link>
                         <Link
                             href={route('login')}
                             className="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                         >
-                            Log in
+                            Iniciar sesión
                         </Link>
                         <Link
                             href={route('register')}
                             className="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                         >
-                            Get Started
+                            Empezar
                         </Link>
                     </div>
                 </div>
@@ -121,20 +121,20 @@ export default function PublicLayout({ children }) {
                     <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
                         <div className="flex space-x-6 md:order-2">
                             <Link href="#" className="text-gray-400 hover:text-gray-500">
-                                About
+                                Acerca de
                             </Link>
                             <Link href="#" className="text-gray-400 hover:text-gray-500">
-                                Contact
+                                Contacto
                             </Link>
                             <Link href="#" className="text-gray-400 hover:text-gray-500">
-                                Terms
+                                Terminos y condiciones
                             </Link>
                             <Link href="#" className="text-gray-400 hover:text-gray-500">
-                                Privacy
+                                Política de privacidad
                             </Link>
                         </div>
                         <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-                            &copy; 2024 Fluently. All rights reserved.
+                            &copy; 2024 Fluentlyyy. Todos los derechos reservados.
                         </p>
                     </div>
                 </div>
