@@ -9,8 +9,8 @@ export default function Index({ students }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-gray-900">Find Language Students</h1>
-                        <p className="mt-2 text-gray-600">Connect with students looking to learn new languages</p>
+                        <h1 className="text-3xl font-bold text-gray-900">Encuentra Estudiantes de Idiomas</h1>
+                        <p className="mt-2 text-gray-600">Conéctate con estudiantes que buscan aprender nuevos idiomas</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -65,7 +65,7 @@ export default function Index({ students }) {
                                             {student.preferred_lesson_duration}
                                         </span>
                                         <span className="font-semibold text-gray-900">
-                                            ${student.budget_per_hour}/hour
+                                            ${student.budget_per_hour}/hora
                                         </span>
                                     </div>
                                 </div>
