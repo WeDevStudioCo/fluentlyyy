@@ -8,6 +8,7 @@ import { Link } from '@inertiajs/react';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    console.log(user.roles[0].name);
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="p-2 bg-base-100 border-b border-gray-100">
@@ -21,9 +22,21 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Escritorio
-                                </NavLink>
+                                {user.roles[0].name === 'student' && (
+                                    <NavLink href={route('student.dashboard')} active={route().current('student.dashboard')}>
+                                        Panel del Estudiante
+                                    </NavLink>
+                                )}
+                                {user.roles[0].name === 'teacher' && (
+                                    <NavLink href={route('teacher.dashboard')} active={route().current('teacher.dashboard')}>
+                                        Panel del Profesor
+                                    </NavLink>
+                                )}
+                                {user.roles[0].name === 'admin' && (
+                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                        Panel de Administración
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -92,9 +105,21 @@ export default function Authenticated({ user, header, children }) {
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
+                        {user.role === 'student' && (
+                            <ResponsiveNavLink href={route('student.dashboard')} active={route().current('student.dashboard')}>
+                                Panel del Estudiante
+                            </ResponsiveNavLink>
+                        )}
+                        {user.role === 'teacher' && (
+                            <ResponsiveNavLink href={route('teacher.dashboard')} active={route().current('teacher.dashboard')}>
+                                Panel del Profesor
+                            </ResponsiveNavLink>
+                        )}
+                        {user.role === 'admin' && (
+                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Panel de Administración
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
