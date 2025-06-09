@@ -5,14 +5,19 @@ import debounce from "lodash/debounce";
 
 export default function TeacherDashboard({ auth, students, filters }) {
     const [search, setSearch] = useState(filters.search || '');
-    const [language, setLanguage] = useState(filters.language || '');
+    const [sortBy, setSortBy] = useState(filters.sort_by || 'name');
+    const [sortDir, setSortDir] = useState(filters.sort_dir || 'asc');
 
-    const debouncedSearch = debounce((value, lang) => {
+    const updateFilters = (searchValue, sBy = sortBy, sDir = sortDir) => {
         router.get(
             route('teacher.dashboard'),
-            { search: value, language: lang },
+            { search: searchValue, sort_by: sBy, sort_dir: sDir },
             { preserveState: true, preserveScroll: true }
         );
+    };
+
+    const debouncedSearch = debounce((value) => {
+        updateFilters(value);
     }, 300);
 
     const handleSearch = (e) => {
@@ -23,6 +28,16 @@ export default function TeacherDashboard({ auth, students, filters }) {
     const handleLanguageChange = (e) => {
         setLanguage(e.target.value);
         debouncedSearch(search, e.target.value);
+    };
+
+    const handleSortBy = (e) => {
+        setSortBy(e.target.value);
+        updateFilters(search, e.target.value, sortDir);
+    };
+
+    const handleSortDir = (e) => {
+        setSortDir(e.target.value);
+        updateFilters(search, sortBy, e.target.value);
     };
 
     useEffect(() => {
@@ -40,11 +55,35 @@ export default function TeacherDashboard({ auth, students, filters }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6">
-                            <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-                                <h3 className="text-lg font-medium text-gray-900 mb-4 sm:mb-0">
-                                    Lista de Estudiantes
-                                </h3>
-                                <div className="w-full flex flex-col sm:flex-row gap-4 sm:w-auto">
+                            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-6">
+                                <div>
+                                    <h3 className="text-lg font-medium text-gray-900 mb-2">Lista de Estudiantes</h3>
+                                    <div className="flex space-x-2">
+                                        <div>
+                                            <label className="block text-xs text-gray-500">Ordenar por</label>
+                                            <select
+                                                value={sortBy}
+                                                onChange={handleSortBy}
+                                                className="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 text-sm"
+                                            >
+                                                <option value="name">Nombre</option>
+                                                <option value="email">Correo</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs text-gray-500">Dirección</label>
+                                            <select
+                                                value={sortDir}
+                                                onChange={handleSortDir}
+                                                className="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 text-sm"
+                                            >
+                                                <option value="asc">Ascendente</option>
+                                                <option value="desc">Descendente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full sm:w-64">
                                     <input
                                         type="text"
                                         placeholder="Buscar por nombre o correo..."
@@ -73,6 +112,9 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                     <thead className="bg-gray-50">
                                         <tr>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Foto
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Nombre
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -94,20 +136,23 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                             students.map((student) => (
                                                 <tr key={student.id}>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm font-medium text-gray-900">
-                                                            {student.name}
-                                                        </div>
+                                                        {student.profile_picture ? (
+                                                            <img
+                                                                src={`/storage/${student.profile_picture}`}
+                                                                alt={student.name}
+                                                                className="h-10 w-10 rounded-full object-cover"
+                                                            />
+                                                        ) : (
+                                                            <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                                                <span className="text-gray-500 text-sm">{student.name[0]}</span>
+                                                            </div>
+                                                        )}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm text-gray-500">
-                                                            {student.email}
-                                                        </div>
+                                                        <div className="text-sm font-medium text-gray-900">{student.name}</div>
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {student.languages_learning && student.languages_learning.join(', ')}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {student.budget_per_hour ? `$${student.budget_per_hour}` : '-'}
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="text-sm text-gray-500">{student.email}</div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                         <Link
@@ -121,7 +166,7 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
+                                                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
                                                     No se encontraron estudiantes
                                                 </td>
                                             </tr>

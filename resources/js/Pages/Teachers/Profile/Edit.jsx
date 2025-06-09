@@ -8,7 +8,9 @@ import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 
 export default function Edit({ auth, profile, timezones }) {
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(
+        profile.profile_picture ? `/storage/${profile.profile_picture}` : null
+    );
     
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         bio: profile.bio || '',
@@ -58,13 +60,13 @@ export default function Edit({ auth, profile, timezones }) {
                                     id="profile_picture"
                                     accept="image/*"
                                     onChange={handleImageChange}
-                                    className="mt-1"
+                                    className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                                 />
                                 {selectedImage && (
                                     <img
                                         src={selectedImage}
                                         alt="Vista previa"
-                                        className="mt-2 h-32 w-32 object-cover rounded-full"
+                                        className="mt-2 h-32 w-32 object-cover rounded-full border"
                                     />
                                 )}
                                 <InputError message={errors.profile_picture} className="mt-2" />
@@ -235,4 +237,4 @@ export default function Edit({ auth, profile, timezones }) {
             </div>
         </TeacherLayout>
     );
-} 
+}

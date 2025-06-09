@@ -10,27 +10,29 @@ class TeacherDashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $query = StudentProfile::with('user:id,name,email');
+        $query = User::role('student')
+            ->select(['id', 'name', 'email'])
+            ->with('studentProfile:id,user_id,profile_picture');
 
         if ($request->search) {
-            $search = $request->search;
-            $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('email', 'LIKE', "%{$search}%");
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'LIKE', "%{$request->search}%")
+                    ->orWhere('email', 'LIKE', "%{$request->search}%");
             });
         }
 
-        if ($request->language) {
-            $query->whereJsonContains('languages_learning', $request->language);
-        }
+        $sortBy = in_array($request->sort_by, ['name', 'email']) ? $request->sort_by : 'name';
+        $sortDir = $request->sort_dir === 'desc' ? 'desc' : 'asc';
+
+        $query->orderBy($sortBy, $sortDir);
 
         $students = $query->get()->map(function ($student) {
             return [
                 'id' => $student->id,
-                'name' => $student->user->name,
-                'email' => $student->user->email,
-                'languages_learning' => $student->languages_learning,
-                'budget_per_hour' => $student->budget_per_hour,
+                'name' => $student->name,
+                'email' => $student->email,
+                'profile_picture' => optional($student->studentProfile)->profile_picture,
+
             ];
         });
 
@@ -38,7 +40,9 @@ class TeacherDashboardController extends Controller
             'students' => $students,
             'filters' => [
                 'search' => $request->search,
-                'language' => $request->language,
+                'sort_by' => $sortBy,
+                'sort_dir' => $sortDir,
+
             ],
         ]);
     }
