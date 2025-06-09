@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\StudentProfile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,6 +32,7 @@ class TeacherDashboardController extends Controller
                 'name' => $student->name,
                 'email' => $student->email,
                 'profile_picture' => optional($student->studentProfile)->profile_picture,
+
             ];
         });
 
@@ -41,6 +42,7 @@ class TeacherDashboardController extends Controller
                 'search' => $request->search,
                 'sort_by' => $sortBy,
                 'sort_dir' => $sortDir,
+
             ],
         ]);
     }

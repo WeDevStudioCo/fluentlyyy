@@ -22,7 +22,12 @@ export default function TeacherDashboard({ auth, students, filters }) {
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
-        debouncedSearch(e.target.value);
+        debouncedSearch(e.target.value, language);
+    };
+
+    const handleLanguageChange = (e) => {
+        setLanguage(e.target.value);
+        debouncedSearch(search, e.target.value);
     };
 
     const handleSortBy = (e) => {
@@ -86,6 +91,19 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                         onChange={handleSearch}
                                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                     />
+                                    <select
+                                        value={language}
+                                        onChange={handleLanguageChange}
+                                        className="w-full sm:w-48 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    >
+                                        <option value="">Todos los idiomas</option>
+                                        <option value="English">Inglés</option>
+                                        <option value="Spanish">Español</option>
+                                        <option value="Japanese">Japonés</option>
+                                        <option value="French">Francés</option>
+                                        <option value="German">Alemán</option>
+                                        <option value="Chinese">Chino</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -101,6 +119,12 @@ export default function TeacherDashboard({ auth, students, filters }) {
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Correo
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Idiomas
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Presupuesto
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Acciones
