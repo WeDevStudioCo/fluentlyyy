@@ -52,171 +52,215 @@ export default function Edit({ auth, profile, timezones }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div>
-                                <InputLabel htmlFor="profile_picture" value="Foto de Perfil" />
-                                <input
-                                    type="file"
-                                    id="profile_picture"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                />
-                                {selectedImage && (
-                                    <img
-                                        src={selectedImage}
-                                        alt="Vista previa"
-                                        className="mt-2 h-32 w-32 object-cover rounded-full border"
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <section className="space-y-6">
+                                <h3 className="text-lg font-semibold divider">Información básica</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <InputLabel htmlFor="profile_picture" value="Foto de Perfil" />
+                                        <input
+                                            type="file"
+                                            id="profile_picture"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                        />
+                                        {selectedImage && (
+                                            <img
+                                                src={selectedImage}
+                                                alt="Vista previa"
+                                                className="mt-2 h-32 w-32 object-cover rounded-full border"
+                                            />
+                                        )}
+                                        <InputError message={errors.profile_picture} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="bio" value="Biografía" />
+                                        <textarea
+                                            id="bio"
+                                            value={data.bio}
+                                            onChange={(e) => setData('bio', e.target.value)}
+                                            className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                            rows="4"
+                                            placeholder="Cuéntanos sobre ti y tu experiencia..."
+                                        />
+                                        <InputError message={errors.bio} className="mt-2" />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <InputLabel htmlFor="languages" value="Idiomas que Enseñas" />
+                                        <select
+                                            multiple
+                                            id="languages"
+                                            value={data.languages}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'languages',
+                                                    Array.from(
+                                                        e.target.selectedOptions,
+                                                        (option) => option.value
+                                                    )
+                                                )
+                                            }
+                                            className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        >
+                                            <option value="Inglés">Inglés</option>
+                                            <option value="Español">Español</option>
+                                            <option value="Francés">Francés</option>
+                                            <option value="Alemán">Alemán</option>
+                                            <option value="Italiano">Italiano</option>
+                                            <option value="Portugués">Portugués</option>
+                                            <option value="Chino">Chino</option>
+                                            <option value="Japonés">Japonés</option>
+                                            <option value="Coreano">Coreano</option>
+                                        </select>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples idiomas
+                                        </p>
+                                        <InputError message={errors.languages} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="timezone" value="Zona Horaria" />
+                                        <select
+                                            id="timezone"
+                                            value={data.timezone}
+                                            onChange={(e) => setData('timezone', e.target.value)}
+                                            className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        >
+                                            <option value="">Selecciona tu zona horaria</option>
+                                            {timezones.map((timezone) => (
+                                                <option key={timezone} value={timezone}>
+                                                    {timezone}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <InputError message={errors.timezone} className="mt-2" />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <InputLabel htmlFor="hourly_rate" value="Tarifa por Hora (USD)" />
+                                        <TextInput
+                                            type="number"
+                                            id="hourly_rate"
+                                            value={data.hourly_rate}
+                                            onChange={(e) => setData('hourly_rate', e.target.value)}
+                                            className="mt-1 block w-full"
+                                            min="0"
+                                            step="0.01"
+                                        />
+                                        <InputError message={errors.hourly_rate} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="video_introduction_url" value="URL del Video de Presentación" />
+                                        <TextInput
+                                            type="url"
+                                            id="video_introduction_url"
+                                            value={data.video_introduction_url}
+                                            onChange={(e) =>
+                                                setData('video_introduction_url', e.target.value)
+                                            }
+                                            className="mt-1 block w-full"
+                                            placeholder="https://www.youtube.com/..."
+                                        />
+                                        <InputError
+                                            message={errors.video_introduction_url}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section className="space-y-6">
+                                <h3 className="text-lg font-semibold divider">Experiencia</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <InputLabel htmlFor="education" value="Educación" />
+                                        <textarea
+                                            id="education"
+                                            value={data.education}
+                                            onChange={(e) => setData('education', e.target.value)}
+                                            className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                            rows="4"
+                                            placeholder="Describe tu formación académica..."
+                                        />
+                                        <InputError message={errors.education} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="teaching_experience" value="Experiencia Docente" />
+                                        <textarea
+                                            id="teaching_experience"
+                                            value={data.teaching_experience}
+                                            onChange={(e) =>
+                                                setData('teaching_experience', e.target.value)
+                                            }
+                                            className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                            rows="4"
+                                            placeholder="Describe tu experiencia enseñando idiomas..."
+                                        />
+                                        <InputError
+                                            message={errors.teaching_experience}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="specializations" value="Especializaciones" />
+                                    <textarea
+                                        id="specializations"
+                                        value={data.specializations}
+                                        onChange={(e) => setData('specializations', e.target.value)}
+                                        className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        rows="4"
+                                        placeholder="¿En qué áreas te especializas?"
                                     />
-                                )}
-                                <InputError message={errors.profile_picture} className="mt-2" />
-                            </div>
+                                    <InputError message={errors.specializations} className="mt-2" />
+                                </div>
+                            </section>
 
-                            <div>
-                                <InputLabel htmlFor="bio" value="Biografía" />
-                                <textarea
-                                    id="bio"
-                                    value={data.bio}
-                                    onChange={(e) => setData('bio', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    rows="4"
-                                    placeholder="Cuéntanos sobre ti y tu experiencia..."
-                                />
-                                <InputError message={errors.bio} className="mt-2" />
-                            </div>
+                            <section className="space-y-6">
+                                <h3 className="text-lg font-semibold divider">Disponibilidad</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <InputLabel htmlFor="calendly_link" value="Enlace de Calendly" />
+                                        <TextInput
+                                            type="url"
+                                            id="calendly_link"
+                                            value={data.calendly_link}
+                                            onChange={(e) => setData('calendly_link', e.target.value)}
+                                            className="mt-1 block w-full"
+                                            placeholder="https://calendly.com/tu-usuario"
+                                        />
+                                        <InputError message={errors.calendly_link} className="mt-2" />
+                                    </div>
 
-                            <div>
-                                <InputLabel htmlFor="education" value="Educación" />
-                                <textarea
-                                    id="education"
-                                    value={data.education}
-                                    onChange={(e) => setData('education', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    rows="4"
-                                    placeholder="Describe tu formación académica..."
-                                />
-                                <InputError message={errors.education} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="teaching_experience" value="Experiencia Docente" />
-                                <textarea
-                                    id="teaching_experience"
-                                    value={data.teaching_experience}
-                                    onChange={(e) => setData('teaching_experience', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    rows="4"
-                                    placeholder="Describe tu experiencia enseñando idiomas..."
-                                />
-                                <InputError message={errors.teaching_experience} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="specializations" value="Especializaciones" />
-                                <textarea
-                                    id="specializations"
-                                    value={data.specializations}
-                                    onChange={(e) => setData('specializations', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    rows="4"
-                                    placeholder="¿En qué áreas te especializas?"
-                                />
-                                <InputError message={errors.specializations} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="languages" value="Idiomas que Enseñas" />
-                                <select
-                                    multiple
-                                    id="languages"
-                                    value={data.languages}
-                                    onChange={(e) => setData('languages', Array.from(e.target.selectedOptions, option => option.value))}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                >
-                                    <option value="Inglés">Inglés</option>
-                                    <option value="Español">Español</option>
-                                    <option value="Francés">Francés</option>
-                                    <option value="Alemán">Alemán</option>
-                                    <option value="Italiano">Italiano</option>
-                                    <option value="Portugués">Portugués</option>
-                                    <option value="Chino">Chino</option>
-                                    <option value="Japonés">Japonés</option>
-                                    <option value="Coreano">Coreano</option>
-                                </select>
-                                <p className="mt-1 text-sm text-gray-500">Mantén presionado Ctrl (Cmd en Mac) para seleccionar múltiples idiomas</p>
-                                <InputError message={errors.languages} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="hourly_rate" value="Tarifa por Hora (USD)" />
-                                <TextInput
-                                    type="number"
-                                    id="hourly_rate"
-                                    value={data.hourly_rate}
-                                    onChange={(e) => setData('hourly_rate', e.target.value)}
-                                    className="mt-1 block w-full"
-                                    min="0"
-                                    step="0.01"
-                                />
-                                <InputError message={errors.hourly_rate} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="timezone" value="Zona Horaria" />
-                                <select
-                                    id="timezone"
-                                    value={data.timezone}
-                                    onChange={(e) => setData('timezone', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                >
-                                    <option value="">Selecciona tu zona horaria</option>
-                                    {timezones.map((timezone) => (
-                                        <option key={timezone} value={timezone}>
-                                            {timezone}
-                                        </option>
-                                    ))}
-                                </select>
-                                <InputError message={errors.timezone} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="video_introduction_url" value="URL del Video de Presentación" />
-                                <TextInput
-                                    type="url"
-                                    id="video_introduction_url"
-                                    value={data.video_introduction_url}
-                                    onChange={(e) => setData('video_introduction_url', e.target.value)}
-                                    className="mt-1 block w-full"
-                                    placeholder="https://www.youtube.com/..."
-                                />
-                                <InputError message={errors.video_introduction_url} className="mt-2" />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor="calendly_link" value="Enlace de Calendly" />
-                                <TextInput
-                                    type="url"
-                                    id="calendly_link"
-                                    value={data.calendly_link}
-                                    onChange={(e) => setData('calendly_link', e.target.value)}
-                                    className="mt-1 block w-full"
-                                    placeholder="https://calendly.com/tu-usuario"
-                                />
-                                <InputError message={errors.calendly_link} className="mt-2" />
-                            </div>
-
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id="is_accepting_students"
-                                    checked={data.is_accepting_students}
-                                    onChange={(e) => setData('is_accepting_students', e.target.checked)}
-                                    className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                                />
-                                <label htmlFor="is_accepting_students" className="ml-2 block text-sm text-gray-900">
-                                    Aceptando nuevos estudiantes
-                                </label>
-                            </div>
+                                    <div className="flex items-center mt-6">
+                                        <input
+                                            type="checkbox"
+                                            id="is_accepting_students"
+                                            checked={data.is_accepting_students}
+                                            onChange={(e) =>
+                                                setData('is_accepting_students', e.target.checked)
+                                            }
+                                            className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        />
+                                        <label
+                                            htmlFor="is_accepting_students"
+                                            className="ml-2 block text-sm text-gray-900"
+                                        >
+                                            Aceptando nuevos estudiantes
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
 
                             <div className="flex items-center gap-4">
                                 <PrimaryButton disabled={processing}>Guardar Cambios</PrimaryButton>
