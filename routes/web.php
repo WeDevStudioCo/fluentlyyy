@@ -53,8 +53,6 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::post('/student-profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
 });
 
-// Public routes for viewing student profiles
-Route::get('/students/{student}', [StudentProfileController::class, 'show'])->name('students.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
