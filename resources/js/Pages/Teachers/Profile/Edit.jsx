@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TeacherLayout from "@/Layouts/TeacherLayout";
 import { Head, useForm } from "@inertiajs/react";
 import InputError from '@/Components/InputError';
@@ -11,6 +11,10 @@ export default function Edit({ auth, profile, timezones }) {
     const [selectedImage, setSelectedImage] = useState(
         profile.profile_picture ? `/storage/${profile.profile_picture}` : null
     );
+
+    useEffect(() => {
+        setSelectedImage(profile.profile_picture ? `/storage/${profile.profile_picture}` : null);
+    }, [profile.profile_picture]);
     
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         bio: profile.bio || '',
