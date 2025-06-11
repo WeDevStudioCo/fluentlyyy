@@ -7,6 +7,7 @@ export default function TeacherDashboard({ auth, students, filters }) {
     const [search, setSearch] = useState(filters.search || '');
     const [sortBy, setSortBy] = useState(filters.sort_by || 'name');
     const [sortDir, setSortDir] = useState(filters.sort_dir || 'asc');
+    const [language, setLanguage] = useState('');
 
     const updateFilters = (searchValue, sBy = sortBy, sDir = sortDir) => {
         router.get(
